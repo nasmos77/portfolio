@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nassim Dira | Evangelion Version</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050608;
+            --bg-soft: #0c1016;
+            --panel: rgba(8, 13, 18, 0.92);
+            --panel-2: rgba(14, 20, 28, 0.94);
+            --line: rgba(124, 255, 96, 0.18);
+            --line-strong: rgba(124, 255, 96, 0.4);
+            --text: #edf2e7;
+            --text-dim: rgba(237, 242, 231, 0.7);
+            --acid: #7cff60;
+            --red: #ff3c3c;
+            --amber: #f5a623;
+            --purple: #7b4cff;
+            --shadow: 0 25px 70px rgba(0, 0, 0, 0.45);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: 'Rajdhani', sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at 20% 20%, rgba(123, 76, 255, 0.12), transparent 18%),
+                radial-gradient(circle at 80% 12%, rgba(255, 60, 60, 0.12), transparent 18%),
+                linear-gradient(180deg, rgba(124, 255, 96, 0.03), transparent 22%),
+                linear-gradient(135deg, #040507 0%, #0a0d12 40%, #050608 100%);
+            overflow-x: hidden;
+        }
+
+        body::before,
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::before {
+            background:
+                linear-gradient(rgba(124, 255, 96, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(124, 255, 96, 0.05) 1px, transparent 1px);
+            background-size: 48px 48px;
+            mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.75), transparent 90%);
+        }
+
+        body::after {
+            background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.03) 48%, transparent 100%);
+            background-size: 100% 4px;
+            opacity: 0.25;
+            mix-blend-mode: screen;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .page {
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            width: min(1220px, calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+        }
+
+        .reveal.is-visible {
+            animation: reveal 0.8s ease forwards;
+        }
+
+        @keyframes reveal {
+            from {
+                opacity: 0;
+                transform: translateY(28px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes drift {
+            from { transform: translate3d(0, -10vh, 0); }
+            to { transform: translate3d(-40px, 110vh, 0); }
+        }
+
+        .particles {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(124, 255, 96, 0.55);
+            box-shadow: 0 0 14px rgba(124, 255, 96, 0.45);
+            animation: drift linear infinite;
+        }
+
+        .particle:nth-child(1) { left: 12%; animation-duration: 18s; animation-delay: -2s; }
+        .particle:nth-child(2) { left: 28%; animation-duration: 21s; animation-delay: -8s; }
+        .particle:nth-child(3) { left: 49%; animation-duration: 16s; animation-delay: -5s; }
+        .particle:nth-child(4) { left: 71%; animation-duration: 20s; animation-delay: -11s; }
+        .particle:nth-child(5) { left: 86%; animation-duration: 17s; animation-delay: -7s; }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            background: rgba(4, 7, 10, 0.88);
+            border-bottom: 1px solid rgba(124, 255, 96, 0.14);
+            backdrop-filter: blur(14px);
+        }
+
+        .topbar-inner {
+            min-height: 82px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+        }
+
+        .brand-badge {
+            width: 52px;
+            height: 52px;
+            border: 1px solid var(--line-strong);
+            display: grid;
+            place-items: center;
+            color: var(--acid);
+            background:
+                linear-gradient(135deg, rgba(124, 255, 96, 0.12), transparent),
+                rgba(255, 255, 255, 0.02);
+            clip-path: polygon(18% 0, 82% 0, 100% 24%, 100% 76%, 82% 100%, 18% 100%, 0 76%, 0 24%);
+            box-shadow: inset 0 0 0 1px rgba(124, 255, 96, 0.08);
+        }
+
+        .brand-copy strong {
+            display: block;
+            font-size: 0.95rem;
+        }
+
+        .brand-copy span {
+            display: block;
+            margin-top: 3px;
+            color: rgba(237, 242, 231, 0.55);
+            font-size: 0.68rem;
+            letter-spacing: 0.24em;
+        }
+
+        .nav {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+
+        .nav a {
+            padding: 10px 12px;
+            border: 1px solid transparent;
+            color: rgba(237, 242, 231, 0.75);
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            font-size: 0.75rem;
+            transition: 0.2s ease;
+        }
+
+        .nav a:hover,
+        .nav a.is-current {
+            color: var(--acid);
+            border-color: rgba(124, 255, 96, 0.2);
+            background: rgba(124, 255, 96, 0.06);
+        }
+
+        .hero {
+            padding: 52px 0 84px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+            gap: 22px;
+        }
+
+        .frame {
+            position: relative;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent), var(--panel);
+            border: 1px solid rgba(124, 255, 96, 0.14);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .frame::before {
+            content: "";
+            position: absolute;
+            inset: 14px;
+            border: 1px solid rgba(124, 255, 96, 0.08);
+            pointer-events: none;
+        }
+
+        .hero-copy {
+            padding: 34px;
+            min-height: 640px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .hero-head {
+            display: grid;
+            gap: 18px;
+        }
+
+        .status-line {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--acid);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-size: 0.76rem;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .status-line::before {
+            content: "";
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--acid);
+            box-shadow: 0 0 16px rgba(124, 255, 96, 0.6);
+            animation: pulse 1.6s ease infinite;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(3.2rem, 7vw, 6.2rem);
+            line-height: 0.9;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            text-shadow: 0 0 24px rgba(124, 255, 96, 0.1);
+        }
+
+        .hero-subtitle {
+            font-size: 1.22rem;
+            color: rgba(237, 242, 231, 0.8);
+            line-height: 1.6;
+            max-width: 52ch;
+        }
+
+        .hud-blocks {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .hud-pill {
+            padding: 10px 12px;
+            border: 1px solid rgba(124, 255, 96, 0.16);
+            background: rgba(124, 255, 96, 0.05);
+            color: var(--text);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-size: 0.8rem;
+        }
+
+        .cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .btn {
+            min-height: 52px;
+            padding: 0 18px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            font-size: 0.82rem;
+            font-family: 'Orbitron', sans-serif;
+            border: 1px solid transparent;
+            transition: 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, rgba(255, 60, 60, 0.28), rgba(255, 60, 60, 0.16));
+            border-color: rgba(255, 60, 60, 0.4);
+            color: #fff;
+        }
+
+        .btn-secondary {
+            background: rgba(124, 255, 96, 0.06);
+            border-color: rgba(124, 255, 96, 0.18);
+            color: var(--acid);
+        }
+
+        .hero-footer {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px;
+            margin-top: 34px;
+        }
+
+        .metric {
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(124, 255, 96, 0.12);
+        }
+
+        .metric strong {
+            display: block;
+            color: var(--acid);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.45rem;
+            margin-bottom: 6px;
+        }
+
+        .metric span {
+            color: rgba(237, 242, 231, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-size: 0.74rem;
+        }
+
+        .hero-panel {
+            min-height: 640px;
+            padding: 22px;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            gap: 18px;
+        }
+
+        .panel-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            color: rgba(237, 242, 231, 0.6);
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            font-size: 0.68rem;
+        }
+
+        .warn {
+            color: var(--red);
+        }
+
+        .core-display {
+            position: relative;
+            min-height: 100%;
+            border: 1px solid rgba(124, 255, 96, 0.14);
+            background:
+                radial-gradient(circle at center, rgba(124, 255, 96, 0.08), transparent 42%),
+                linear-gradient(180deg, rgba(123, 76, 255, 0.1), transparent 35%),
+                rgba(5, 9, 14, 0.96);
+            overflow: hidden;
+        }
+
+        .core-display::before,
+        .core-display::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .core-display::before {
+            background:
+                linear-gradient(90deg, transparent 49.6%, rgba(124, 255, 96, 0.16) 49.6% 50.4%, transparent 50.4%),
+                linear-gradient(transparent 49.6%, rgba(124, 255, 96, 0.16) 49.6% 50.4%, transparent 50.4%);
+        }
+
+        .core-display::after {
+            inset: 24px;
+            border: 1px solid rgba(124, 255, 96, 0.12);
+        }
+
+        .eva-core {
+            position: absolute;
+            inset: 50% auto auto 50%;
+            width: 240px;
+            height: 240px;
+            transform: translate(-50%, -50%);
+            border: 2px solid rgba(124, 255, 96, 0.28);
+            clip-path: polygon(25% 0, 75% 0, 100% 25%, 100% 75%, 75% 100%, 25% 100%, 0 75%, 0 25%);
+            background:
+                radial-gradient(circle at center, rgba(124, 255, 96, 0.12), transparent 60%),
+                rgba(9, 14, 18, 0.8);
+            box-shadow: 0 0 36px rgba(124, 255, 96, 0.08);
+        }
+
+        .eva-core::before,
+        .eva-core::after {
+            content: "";
+            position: absolute;
+            inset: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .eva-core::before {
+            width: 128px;
+            height: 128px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 60, 60, 0.48);
+            box-shadow: 0 0 26px rgba(255, 60, 60, 0.18);
+        }
+
+        .eva-core::after {
+            width: 40px;
+            height: 40px;
+            background: var(--red);
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(255, 60, 60, 0.5);
+        }
+
+        .target-ring {
+            position: absolute;
+            inset: 50% auto auto 50%;
+            transform: translate(-50%, -50%);
+            width: 360px;
+            height: 360px;
+            border-radius: 50%;
+            border: 1px dashed rgba(124, 255, 96, 0.22);
+        }
+
+        .diag {
+            position: absolute;
+            border: 1px solid rgba(124, 255, 96, 0.18);
+            background: rgba(8, 12, 16, 0.9);
+            color: var(--acid);
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-size: 0.62rem;
+            padding: 10px 12px;
+            max-width: 160px;
+        }
+
+        .diag.one { top: 30px; left: 30px; }
+        .diag.two { top: 30px; right: 30px; color: var(--amber); }
+        .diag.three { bottom: 30px; left: 30px; }
+        .diag.four { bottom: 30px; right: 30px; color: var(--red); }
+
+        .panel-bottom {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 12px;
+        }
+
+        .system-box {
+            padding: 14px;
+            border: 1px solid rgba(124, 255, 96, 0.12);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .system-box .label {
+            display: block;
+            margin-bottom: 8px;
+            color: rgba(237, 242, 231, 0.58);
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            font-size: 0.64rem;
+        }
+
+        .system-box strong {
+            display: block;
+            color: var(--text);
+            font-size: 1.2rem;
+        }
+
+        .section {
+            padding: 86px 0;
+            position: relative;
+        }
+
+        .section::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(124, 255, 96, 0.16), transparent);
+        }
+
+        .section-header {
+            display: grid;
+            gap: 14px;
+            margin-bottom: 34px;
+            max-width: 760px;
+        }
+
+        .eyebrow {
+            color: var(--red);
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+            font-size: 0.78rem;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .section-header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 5vw, 4rem);
+            line-height: 0.95;
+            text-transform: uppercase;
+        }
+
+        .section-header p {
+            color: var(--text-dim);
+            font-size: 1.08rem;
+            line-height: 1.65;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 18px;
+        }
+
+        .panel {
+            position: relative;
+            padding: 28px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent), var(--panel-2);
+            border: 1px solid rgba(124, 255, 96, 0.12);
+            box-shadow: var(--shadow);
+        }
+
+        .panel::before {
+            content: "";
+            position: absolute;
+            inset: 12px;
+            border: 1px solid rgba(124, 255, 96, 0.08);
+            pointer-events: none;
+        }
+
+        .panel h3 {
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            font-size: 1.6rem;
+            letter-spacing: 0.04em;
+            margin-bottom: 16px;
+        }
+
+        .panel p {
+            color: var(--text-dim);
+            line-height: 1.7;
+            font-size: 1.04rem;
+        }
+
+        .about-copy {
+            display: grid;
+            gap: 16px;
+        }
+
+        .notice {
+            margin-top: 10px;
+            padding: 16px 18px;
+            border-left: 4px solid var(--amber);
+            background: rgba(245, 166, 35, 0.08);
+            color: #ffd690;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.74rem;
+        }
+
+        .stats {
+            display: grid;
+            gap: 14px;
+        }
+
+        .stat {
+            padding: 20px;
+            border: 1px solid rgba(124, 255, 96, 0.12);
+            background: rgba(124, 255, 96, 0.04);
+        }
+
+        .stat strong {
+            display: block;
+            color: var(--acid);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 6px;
+        }
+
+        .stat span {
+            color: rgba(237, 242, 231, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            font-size: 0.74rem;
+        }
+
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .skill-card {
+            padding: 24px;
+        }
+
+        .skill-card h3 {
+            font-size: 1.35rem;
+        }
+
+        .skill-card p {
+            margin-bottom: 18px;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tags span {
+            padding: 9px 11px;
+            border: 1px solid rgba(124, 255, 96, 0.14);
+            background: rgba(124, 255, 96, 0.05);
+            color: var(--text);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.76rem;
+        }
+
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(12, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .project {
+            min-height: 100%;
+            padding: 24px;
+            position: relative;
+        }
+
+        .project:nth-child(1) { grid-column: span 6; }
+        .project:nth-child(2) { grid-column: span 6; }
+        .project:nth-child(3) { grid-column: span 12; }
+        .project:nth-child(4) { grid-column: span 12; }
+
+        .project-index {
+            display: inline-block;
+            margin-bottom: 14px;
+            color: var(--red);
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-size: 0.72rem;
+        }
+
+        .project h3 {
+            margin-bottom: 14px;
+        }
+
+        .project p {
+            margin-bottom: 18px;
+        }
+
+        .timeline {
+            display: grid;
+            gap: 16px;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 16px;
+        }
+
+        .timeline-date {
+            padding: 24px 18px;
+            background: rgba(255, 60, 60, 0.08);
+            border: 1px solid rgba(255, 60, 60, 0.18);
+            color: #ff9d9d;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            font-size: 0.76rem;
+        }
+
+        .timeline-card {
+            padding: 24px;
+        }
+
+        .timeline-card .place {
+            display: inline-block;
+            margin-bottom: 12px;
+            color: var(--acid);
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-size: 0.72rem;
+        }
+
+        .contact {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 16px;
+        }
+
+        .contact-links {
+            display: grid;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .contact-links a {
+            padding: 14px 16px;
+            border: 1px solid rgba(124, 255, 96, 0.12);
+            background: rgba(124, 255, 96, 0.04);
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            align-items: center;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-size: 0.8rem;
+        }
+
+        .contact-links a strong {
+            color: var(--text);
+            text-transform: none;
+            letter-spacing: normal;
+            font-size: 1rem;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .form-grid {
+            display: grid;
+            gap: 14px;
+        }
+
+        .field {
+            display: grid;
+            gap: 6px;
+        }
+
+        .field label {
+            color: var(--acid);
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            font-size: 0.68rem;
+        }
+
+        .field input,
+        .field textarea {
+            width: 100%;
+            border: 1px solid rgba(124, 255, 96, 0.16);
+            background: rgba(0, 0, 0, 0.22);
+            color: var(--text);
+            padding: 16px 14px;
+            font: inherit;
+        }
+
+        .field input::placeholder,
+        .field textarea::placeholder {
+            color: rgba(237, 242, 231, 0.36);
+        }
+
+        .field input:focus,
+        .field textarea:focus {
+            outline: none;
+            border-color: rgba(124, 255, 96, 0.4);
+            box-shadow: 0 0 0 4px rgba(124, 255, 96, 0.08);
+        }
+
+        .field textarea {
+            min-height: 160px;
+            resize: vertical;
+        }
+
+        .footer {
+            padding: 28px 0 42px;
+        }
+
+        .footer-inner {
+            padding-top: 22px;
+            border-top: 1px solid rgba(124, 255, 96, 0.14);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 10px;
+            color: rgba(237, 242, 231, 0.58);
+        }
+
+        .footer strong {
+            color: var(--text);
+        }
+
+        @media (max-width: 980px) {
+            .hero-grid,
+            .grid-2,
+            .contact,
+            .skills {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-item {
+                grid-template-columns: 1fr;
+            }
+
+            .projects .project {
+                grid-column: span 12;
+            }
+
+            .hero-footer {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .topbar-inner {
+                padding: 14px 0;
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .nav {
+                justify-content: flex-start;
+            }
+
+            .hero {
+                padding: 34px 0 64px;
+            }
+
+            .hero-copy,
+            .hero-panel,
+            .panel,
+            .project,
+            .timeline-card {
+                padding: 20px;
+            }
+
+            .cta-row .btn {
+                width: 100%;
+            }
+
+            .container {
+                width: min(100% - 22px, 1220px);
+            }
+
+            .eva-core {
+                width: 180px;
+                height: 180px;
+            }
+
+            .target-ring {
+                width: 280px;
+                height: 280px;
+            }
+
+            .diag {
+                max-width: 126px;
+                font-size: 0.56rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" aria-hidden="true">
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+    </div>
+
+    <div class="page">
+        <header class="topbar">
+            <div class="container topbar-inner">
+                <a href="#accueil" class="brand">
+                    <span class="brand-badge">ND</span>
+                    <span class="brand-copy">
+                        <strong>Nassim Dira</strong>
+                        <span>Eva inspired portfolio</span>
+                    </span>
+                </a>
+
+                <nav class="nav" aria-label="Navigation principale">
+                    <a class="is-current" href="index.html">Eva</a>
+                    <a href="../got/index.html">Tsushima</a>
+                    <a href="#apropos">A propos</a>
+                    <a href="#competences">Competences</a>
+                    <a href="#projets">Projets</a>
+                    <a href="#formation">Formation</a>
+                    <a href="#contact">Contact</a>
+                </nav>
+            </div>
+        </header>
+
+        <main>
+            <section class="hero" id="accueil">
+                <div class="container hero-grid">
+                    <div class="frame hero-copy reveal">
+                        <div class="hero-head">
+                            <span class="status-line">System ready / profile online</span>
+                            <h1>Nassim Dira</h1>
+                            <p class="hero-subtitle">
+                                Une version du portfolio inspiree de l'esthetique Evangelion:
+                                interfaces tactiques, signaletique d'alerte, contrastes noir rouge vert,
+                                et une mise en scene plus nerveuse, plus industrielle, plus memorisable.
+                            </p>
+                            <div class="hud-blocks">
+                                <span class="hud-pill">Etudiant ESGI Lyon</span>
+                                <span class="hud-pill">Stage informatique</span>
+                                <span class="hud-pill">Alternance septembre 2026</span>
+                            </div>
+                            <div class="cta-row">
+                                <a class="btn btn-primary" href="#contact">Entrer en contact</a>
+                                <a class="btn btn-secondary" href="../CV.pdf" download="CV_Nassim_DIRA.pdf">Telecharger CV</a>
+                                <a class="btn btn-secondary" href="../got/index.html">Voir version Tsushima</a>
+                            </div>
+                        </div>
+
+                        <div class="hero-footer">
+                            <div class="metric">
+                                <strong>3+</strong>
+                                <span>Projets suivis</span>
+                            </div>
+                            <div class="metric">
+                                <strong>6+</strong>
+                                <span>Stacks et outils</span>
+                            </div>
+                            <div class="metric">
+                                <strong>2028</strong>
+                                <span>Diplome vise</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <aside class="frame hero-panel reveal" aria-label="Panneau tactique decoratif">
+                        <div class="panel-top">
+                            <span>Diagnostic board</span>
+                            <span class="warn">Alert status</span>
+                        </div>
+
+                        <div class="core-display">
+                            <div class="target-ring"></div>
+                            <div class="eva-core"></div>
+                            <div class="diag one">Signal captif<br>Profil technique</div>
+                            <div class="diag two">Sync ratio<br>En progression</div>
+                            <div class="diag three">Focus<br>Systemes / reseaux</div>
+                            <div class="diag four">Priority<br>Stage / alternance</div>
+                        </div>
+
+                        <div class="panel-bottom">
+                            <div class="system-box">
+                                <span class="label">Primary role</span>
+                                <strong>Junior dev / system mindset</strong>
+                            </div>
+                            <div class="system-box">
+                                <span class="label">Output</span>
+                                <strong>Stable and curious</strong>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </section>
+
+            <section class="section" id="apropos">
+                <div class="container">
+                    <div class="section-header reveal">
+                        <span class="eyebrow">Identity profile</span>
+                        <h2>A propos</h2>
+                        <p>Le fond reste professionnel, mais raconte ici un profil plus intense, plus structure, plus "mission critical".</p>
+                    </div>
+
+                    <div class="grid-2">
+                        <article class="panel about-copy reveal">
+                            <h3>Administrateur systeme et reseau en devenir</h3>
+                            <p>
+                                Etudiant passionne en informatique, je cherche a consolider mes acquis au contact
+                                d'un environnement professionnel exigeant. J'aime comprendre les systemes, fiabiliser
+                                un cadre de travail et progresser vite sur des sujets concrets.
+                            </p>
+                            <p>
+                                Curieux, motive et rigoureux, je veux rejoindre une equipe ou je peux apprendre,
+                                contribuer reellement et prendre de plus en plus de responsabilites. Cette version
+                                Evangelion met en avant cette intensite de progression, ce gout du pilotage et de la precision.
+                            </p>
+                            <div class="notice">Status note: discipline, adaptation, progression continue.</div>
+                        </article>
+
+                        <aside class="stats reveal">
+                            <div class="stat">
+                                <strong>3+</strong>
+                                <span>Projets significatifs</span>
+                            </div>
+                            <div class="stat">
+                                <strong>6+</strong>
+                                <span>Langages et outils pratiques</span>
+                            </div>
+                            <div class="stat">
+                                <strong>2028</strong>
+                                <span>Objectif de diplome</span>
+                            </div>
+                        </aside>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="competences">
+                <div class="container">
+                    <div class="section-header reveal">
+                        <span class="eyebrow">Technical loadout</span>
+                        <h2>Competences</h2>
+                        <p>Une lecture plus HUD et plus modulaire des competences, pour donner une sensation d'arsenal bien organise.</p>
+                    </div>
+
+                    <div class="skills">
+                        <article class="panel skill-card reveal">
+                            <h3>Langages</h3>
+                            <p>Des bases propres pour construire, automatiser, tester des idees et progresser rapidement sur des environnements varies.</p>
+                            <div class="tags">
+                                <span>C</span>
+                                <span>Python</span>
+                                <span>HTML</span>
+                                <span>CSS</span>
+                                <span>Luau</span>
+                            </div>
+                        </article>
+
+                        <article class="panel skill-card reveal">
+                            <h3>Outils</h3>
+                            <p>Un socle technique utile pour coder, collaborer, travailler sur differents OS et garder une logique d'infrastructure.</p>
+                            <div class="tags">
+                                <span>GitHub</span>
+                                <span>VS Code</span>
+                                <span>Linux</span>
+                                <span>Windows</span>
+                                <span>SQL</span>
+                                <span>Roblox Studio</span>
+                            </div>
+                        </article>
+
+                        <article class="panel skill-card reveal">
+                            <h3>Soft skills</h3>
+                            <p>Des qualites importantes pour tenir dans la duree, suivre un cap, cooperer efficacement et rester fiable sous contrainte.</p>
+                            <div class="tags">
+                                <span>Travail en equipe</span>
+                                <span>Resolution de problemes</span>
+                                <span>Autonomie</span>
+                                <span>Curiosite</span>
+                                <span>Gestion du temps</span>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="projets">
+                <div class="container">
+                    <div class="section-header reveal">
+                        <span class="eyebrow">Mission logs</span>
+                        <h2>Projets</h2>
+                        <p>Les projets sont presentes ici comme des modules d'operation: role, execution, impact et technologies engagees.</p>
+                    </div>
+
+                    <div class="projects">
+                        <article class="panel project reveal">
+                            <span class="project-index">Log 01</span>
+                            <h3>Bot Discord Python</h3>
+                            <p>
+                                Developpement de plusieurs bots d'automatisation pour Discord avec gestion des messages,
+                                moderation et interactions utilisateur. Un projet utile pour travailler la logique,
+                                l'organisation du code et la reactivite face aux besoins.
+                            </p>
+                            <div class="tags">
+                                <span>Python</span>
+                                <span>Discord API</span>
+                                <span>Automatisation</span>
+                            </div>
+                        </article>
+
+                        <article class="panel project reveal">
+                            <span class="project-index">Log 02</span>
+                            <h3>Programmes en C</h3>
+                            <p>
+                                Realisation de programmes en langage C autour des calculs, des algorithmes et des structures de donnees,
+                                avec une approche plus bas niveau qui renforce la rigueur et les reflexes de programmation.
+                            </p>
+                            <div class="tags">
+                                <span>C</span>
+                                <span>Algorithmes</span>
+                                <span>Logique</span>
+                            </div>
+                        </article>
+
+                        <article class="panel project reveal">
+                            <span class="project-index">Log 03</span>
+                            <h3>Project Lead sur Descension</h3>
+                            <p>
+                                Participation au developpement de Descension sur Roblox Studio en tant que project lead,
+                                mais aussi comme scripter principal. Mon role couvrait la coordination, la vision du
+                                projet, le suivi de production ainsi que l'implementation des scripts centraux du jeu en Luau.
+                                Cette experience m'a permis de piloter une dynamique d'equipe, structurer les priorites,
+                                garder une direction claire et porter directement une part essentielle de la realisation technique.
+                            </p>
+                            <div class="tags">
+                                <span>Roblox Studio</span>
+                                <span>Project Lead</span>
+                                <span>Luau</span>
+                                <span>Coordination</span>
+                                <span>Production</span>
+                            </div>
+                        </article>
+
+                        <article class="panel project reveal">
+                            <span class="project-index">Log 04</span>
+                            <h3>Portfolio Web</h3>
+                            <p>
+                                Conception d'un portfolio personnel responsive avec plusieurs directions artistiques.
+                                Cette declinaison Evangelion met l'accent sur les interfaces tactiques, les structures
+                                techniques, les codes de l'alerte et une mise en page beaucoup plus aggressive visuellement.
+                            </p>
+                            <div class="tags">
+                                <span>HTML</span>
+                                <span>CSS</span>
+                                <span>Responsive Design</span>
+                                <span>Direction artistique</span>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="formation">
+                <div class="container">
+                    <div class="section-header reveal">
+                        <span class="eyebrow">Training records</span>
+                        <h2>Formation</h2>
+                        <p>La timeline devient plus technique et plus lisible, comme une suite d'enregistrements de progression.</p>
+                    </div>
+
+                    <div class="timeline">
+                        <div class="timeline-item reveal">
+                            <div class="timeline-date">2025 - 2028</div>
+                            <article class="panel timeline-card">
+                                <h3>Bachelor informatique</h3>
+                                <span class="place">ESGI Lyon</span>
+                                <p>Formation en algorithmique, bases de donnees, reseaux, developpement et systemes d'exploitation.</p>
+                            </article>
+                        </div>
+
+                        <div class="timeline-item reveal">
+                            <div class="timeline-date">2025</div>
+                            <article class="panel timeline-card">
+                                <h3>Baccalaureat</h3>
+                                <span class="place">Mathematiques / NSI</span>
+                                <p>Un socle analytique et logique coherent pour poursuivre dans les environnements techniques.</p>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="contact">
+                <div class="container">
+                    <div class="section-header reveal">
+                        <span class="eyebrow">Contact channel</span>
+                        <h2>Contact</h2>
+                        <p>Une zone de contact plus premium, plus controlee, avec un ton d'interface tactique coherent avec le reste de la direction visuelle.</p>
+                    </div>
+
+                    <div class="contact">
+                        <aside class="panel reveal">
+                            <h3>Connexion ouverte</h3>
+                            <p>
+                                Je recherche actuellement un stage en developpement informatique ainsi qu'une alternance
+                                a partir de septembre 2026. Si mon profil t'interesse, je suis disponible pour echanger rapidement.
+                            </p>
+                            <div class="contact-links">
+                                <a href="mailto:nassim.dira@gmail.com">
+                                    <span>Email</span>
+                                    <strong>nassim.dira@gmail.com</strong>
+                                </a>
+                                <a href="tel:+33781757471">
+                                    <span>Telephone</span>
+                                    <strong>+33 7 81 75 74 71</strong>
+                                </a>
+                                <a href="https://www.linkedin.com/in/nassim-dira-3104552bb/" target="_blank" rel="noreferrer">
+                                    <span>LinkedIn</span>
+                                    <strong>Voir le profil</strong>
+                                </a>
+                                <a href="../CV.pdf" download="CV_Nassim_DIRA.pdf">
+                                    <span>CV</span>
+                                    <strong>Telecharger</strong>
+                                </a>
+                            </div>
+                        </aside>
+
+                        <div class="panel reveal">
+                            <h3>Message entrant</h3>
+                            <p>Le formulaire reste fonctionnel, mais recontextualise dans une interface plus nerveuse et plus identitaire.</p>
+                            <form action="https://formspree.io/f/mlgdvqeg" method="POST" class="form-grid">
+                                <div class="field">
+                                    <label for="nom">Nom Prenom</label>
+                                    <input type="text" id="nom" name="nom" required placeholder="Votre nom et prenom">
+                                </div>
+                                <div class="field">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" name="email" required placeholder="votre.email@exemple.com">
+                                </div>
+                                <div class="field">
+                                    <label for="entreprise">Entreprise / Organisation</label>
+                                    <input type="text" id="entreprise" name="entreprise" placeholder="Nom de votre entreprise">
+                                </div>
+                                <div class="field">
+                                    <label for="message">Message</label>
+                                    <textarea id="message" name="message" required placeholder="Parlez-moi de l'opportunite..."></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Envoyer</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="container footer-inner">
+                <p><strong>Nassim Dira</strong> Evangelion inspired portfolio</p>
+                <p>Version alternative disponible aussi en <a href="../got/index.html">Ghost of Tsushima</a></p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.16 });
+
+        document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
+    </script>
+</body>
+</html>
