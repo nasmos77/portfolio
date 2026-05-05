@@ -57,35 +57,50 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            background: #050102;
+            background: #1E060C;
             overflow: hidden;
         }
 
         .hero::before {
             content: '';
             position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, rgba(81, 16, 32, 0.2) 0%, transparent 70%);
-            animation: float 8s ease-in-out infinite;
+            inset: 0;
+            background-image:
+                linear-gradient(115deg, transparent 0 11%, rgba(237, 165, 183, 0.08) 11.1% 11.4%, transparent 11.5% 100%),
+                linear-gradient(35deg, transparent 0 22%, rgba(237, 165, 183, 0.05) 22.1% 22.4%, transparent 22.5% 100%),
+                linear-gradient(160deg, transparent 0 62%, rgba(81, 16, 32, 0.14) 62.1% 62.4%, transparent 62.5% 100%);
+            opacity: 0.6;
         }
 
         .hero::after {
             content: '';
             position: absolute;
-            bottom: -30%;
-            left: -10%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(30, 6, 12, 0.3) 0%, transparent 70%);
-            animation: float 6s ease-in-out infinite reverse;
+            inset: 0;
+            background-image:
+                radial-gradient(circle, rgba(247, 216, 224, 0.7) 0 1px, transparent 2px),
+                radial-gradient(circle, rgba(237, 165, 183, 0.45) 0 1px, transparent 2px);
+            background-size: 120px 120px, 190px 190px;
+            background-position: 20px 30px, 80px 100px;
+            opacity: 0.26;
+        }
+
+        .solar-system {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .solar-system canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            opacity: 0.78;
         }
 
         .hero-content {
             text-align: center;
-            z-index: 1;
+            z-index: 2;
             padding: 40px;
         }
 
@@ -147,6 +162,7 @@
             left: 50%;
             transform: translateX(-50%);
             animation: float 2s ease-in-out infinite;
+            z-index: 2;
         }
 
         .scroll-indicator span {
@@ -218,8 +234,9 @@
         }
 
         .main-content {
-            background: #FFFFFF;
+            background: transparent;
             position: relative;
+            z-index: 1;
         }
 
         section {
@@ -227,11 +244,11 @@
             position: relative;
         }
 
-        section:nth-child(even) {
-            background: linear-gradient(135deg, #F7D8E0 0%, #FFFFFF 100%);
+        .main-content section:nth-child(even) {
+            background: linear-gradient(135deg, rgba(247, 216, 224, 0.82) 0%, rgba(255, 255, 255, 0.7) 100%);
         }
 
-        section:nth-child(odd) {
+        .main-content section:nth-child(odd) {
             background: #FFFFFF;
         }
 
@@ -398,7 +415,19 @@
         }
 
         .project-card:nth-child(3) {
-            grid-column: span 12;
+            grid-column: span 6;
+        }
+
+        .project-card:nth-child(4) {
+            grid-column: span 6;
+        }
+
+        .project-card:nth-child(5) {
+            grid-column: span 7;
+        }
+
+        .project-card:nth-child(6) {
+            grid-column: span 5;
         }
 
         .project-card:hover {
@@ -631,7 +660,7 @@
             font-size: 1em;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             transition: all 0.3s;
-            background: #FAFAFA;
+            background: #FFFFFF;
         }
 
         .form-group input:focus,
@@ -797,6 +826,7 @@
     </nav>
 
     <section class="hero">
+        <div class="solar-system" id="solar-system-3d" aria-hidden="true"></div>
         <div class="hero-content">
             <h1>DIRA Nassim</h1>
             <h2>Étudiant en Informatique à l'ESGI Lyon</h2>
@@ -835,7 +865,7 @@
                     </div>
                     <div class="about-stats">
                         <div class="stat-card">
-                            <span class="number">3+</span>
+                            <span class="number">6+</span>
                             <span class="label">Projets réalisés</span>
                         </div>
                         <div class="stat-card">
@@ -864,6 +894,7 @@
                         <div class="skill-tags">
                             <span class="skill-tag">C</span>
                             <span class="skill-tag">Python</span>
+                            <span class="skill-tag">Luau</span>
                             <span class="skill-tag">HTML</span>
                             <span class="skill-tag">CSS</span>
                         </div>
@@ -927,6 +958,55 @@
                             <div class="project-tech">
                                 <span class="tech-tag">C</span>
                                 <span class="tech-tag">Algorithmes</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-header">
+                            <h3>🎮 Développement Roblox Luau</h3>
+                        </div>
+                        <div class="project-body">
+                            <p>
+                                Création de scripts et systèmes de jeu sur Roblox avec Luau : interactions, logique de gameplay,
+                                gestion d'événements et amélioration de l'expérience utilisateur.
+                            </p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Luau</span>
+                                <span class="tech-tag">Roblox Studio</span>
+                                <span class="tech-tag">Gameplay</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-header">
+                            <h3>🎨 Projets Design</h3>
+                        </div>
+                        <div class="project-body">
+                            <p>
+                                Réalisation de visuels et maquettes pour travailler la composition, la hiérarchie de l'information
+                                et la cohérence graphique d'interfaces ou supports numériques.
+                            </p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Design UI</span>
+                                <span class="tech-tag">Maquettes</span>
+                                <span class="tech-tag">Identité visuelle</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-header">
+                            <h3>🧾 Bot Discord de résumé</h3>
+                        </div>
+                        <div class="project-body">
+                            <p>
+                                Bot Discord en Python capable de produire des résumés de messages pour faciliter le suivi
+                                des discussions, avec une logique pensée pour la modération et l'organisation de serveur.
+                            </p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">Discord API</span>
+                                <span class="tech-tag">Résumé automatique</span>
+                                <span class="tech-tag">Modération</span>
                             </div>
                         </div>
                     </div>
@@ -1045,6 +1125,137 @@
             <p>Disponible pour un stage à partir de juin 2025 | Recherche alternance pour septembre 2026</p>
         </div>
     </footer>
+    <script type="module">
+        import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js';
+
+        const mount = document.getElementById('solar-system-3d');
+
+        if (mount) {
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
+            camera.position.set(0, 1.3, 9);
+            camera.lookAt(0, 0, 0);
+
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.setClearColor(0x1E060C, 0);
+            mount.appendChild(renderer.domElement);
+
+            const colors = {
+                dark: 0x1E060C,
+                wine: 0x511020,
+                pink: 0xEDA5B7,
+                pale: 0xF7D8E0,
+                white: 0xFFFFFF
+            };
+
+            const solarGroup = new THREE.Group();
+            scene.add(solarGroup);
+
+            const sunGroup = new THREE.Group();
+            solarGroup.add(sunGroup);
+
+            const sunGeometry = new THREE.IcosahedronGeometry(1.35, 4);
+            const sunEdges = new THREE.LineSegments(
+                new THREE.WireframeGeometry(sunGeometry),
+                new THREE.LineBasicMaterial({
+                    color: colors.white,
+                    transparent: true,
+                    opacity: 0.7
+                })
+            );
+            sunGroup.add(sunEdges);
+
+            const sunCore = new THREE.Mesh(
+                new THREE.SphereGeometry(0.86, 64, 64),
+                new THREE.MeshBasicMaterial({
+                    color: colors.wine,
+                    transparent: true,
+                    opacity: 0.95
+                })
+            );
+            sunGroup.add(sunCore);
+
+            function makeOrbit(radius) {
+                const points = [];
+                for (let i = 0; i <= 160; i++) {
+                    const angle = (i / 160) * Math.PI * 2;
+                    points.push(new THREE.Vector3(Math.cos(angle) * radius, 0, Math.sin(angle) * radius));
+                }
+
+                const orbit = new THREE.Line(
+                    new THREE.BufferGeometry().setFromPoints(points),
+                    new THREE.LineBasicMaterial({
+                        color: colors.pink,
+                        transparent: true,
+                        opacity: 0.22
+                    })
+                );
+                orbit.rotation.x = THREE.MathUtils.degToRad(67);
+                orbit.rotation.z = THREE.MathUtils.degToRad(-14);
+                solarGroup.add(orbit);
+            }
+
+            function makePlanet(radius, size, speed, start, color) {
+                const pivot = new THREE.Group();
+                pivot.rotation.x = THREE.MathUtils.degToRad(67);
+                pivot.rotation.z = THREE.MathUtils.degToRad(-14);
+                pivot.userData = { speed, start };
+
+                const planet = new THREE.Mesh(
+                    new THREE.IcosahedronGeometry(size, 1),
+                    new THREE.MeshBasicMaterial({
+                        color,
+                        transparent: true,
+                        opacity: 0.62,
+                        wireframe: true
+                    })
+                );
+                planet.position.x = radius;
+                pivot.add(planet);
+                solarGroup.add(pivot);
+                return { pivot, planet };
+            }
+
+            [2.2, 3.35, 4.55, 5.75].forEach(makeOrbit);
+
+            const planets = [
+                makePlanet(2.2, 0.18, 0.55, 0.2, colors.pale),
+                makePlanet(3.35, 0.27, 0.36, 1.8, colors.pink),
+                makePlanet(4.55, 0.34, 0.25, 3.4, colors.white),
+                makePlanet(5.75, 0.22, 0.18, 5.1, colors.pink)
+            ];
+
+            function resize() {
+                const { width, height } = mount.getBoundingClientRect();
+                renderer.setSize(width, height, false);
+                camera.aspect = width / height;
+                camera.position.z = width < 700 ? 10.5 : 9;
+                solarGroup.scale.setScalar(width < 700 ? 0.72 : 1);
+                camera.updateProjectionMatrix();
+            }
+
+            function animate(time) {
+                const seconds = time * 0.001;
+                solarGroup.rotation.y = seconds * 0.08;
+                sunGroup.rotation.x = seconds * 0.2;
+                sunGroup.rotation.y = seconds * 0.28;
+
+                planets.forEach(({ pivot, planet }) => {
+                    pivot.rotation.y = pivot.userData.start + seconds * pivot.userData.speed;
+                    planet.rotation.x = seconds * 0.7;
+                    planet.rotation.y = seconds * 0.9;
+                });
+
+                renderer.render(scene, camera);
+                requestAnimationFrame(animate);
+            }
+
+            resize();
+            window.addEventListener('resize', resize);
+            requestAnimationFrame(animate);
+        }
+    </script>
 </body>
 
 </html>
